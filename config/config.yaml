@@ -1,0 +1,21 @@
+general:
+  fx_pairs:
+    - "EURUSD"
+    - "GBPUSD"
+    - "USDJPY"
+    - "AUDUSD"
+    - "USDCAD"
+    - "USDCHF"
+  start_date: "2018-01-01"  # Keep full range for daily Yahoo data
+  end_date: null             # null means "up to now"
+  intraday_interval: "60"    # intraday interval in minutes
+  intraday_outputsize_days: 30  # capped at 30 for free-tier compatibility
+
+finnhub:
+  api_key: "d2d6ne9r01qjem5jbjj0d2d6ne9r01qjem5jbjjg"
+
+alpha_vantage:
+  api_key: "C4VSRA1G9V1TVR2J"
+
+newsapi:
+  api_key: "d9041136449b46b99493402eb02fd80c"
