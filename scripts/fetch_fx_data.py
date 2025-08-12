@@ -15,16 +15,19 @@ import pandas as pd
 from datetime import datetime, timedelta, UTC
 from pathlib import Path
 from tqdm import tqdm
+from dotenv import load_dotenv
+
+load_dotenv()
 
 BASE_DIR = Path(__file__).resolve().parents[1]
 CONF_PATH = BASE_DIR / "config" / "config.yaml"
 with open(CONF_PATH, "r") as f:
     CONF = yaml.safe_load(f)
 
-FINNHUB_KEY = CONF.get("finnhub", {}).get("api_key")
-ALPHAV_KEY = CONF.get("alpha_vantage", {}).get("api_key")
+FINNHUB_KEY = os.getenv("FINNHUB_API_KEY") or CONF.get("finnhub", {}).get("api_key")
+ALPHAV_KEY = os.getenv("ALPHAV_API_KEY") or CONF.get("alpha_vantage", {}).get("api_key")
 if not FINNHUB_KEY:
-    raise SystemExit("Please add finnhub.api_key to config/config.yaml")
+    raise SystemExit("Missing Finnhub API key. Set FINNHUB_API_KEY in .env or config/config.yaml")
 
 PAIRS = CONF['general']['fx_pairs']
 OUT_RAW = BASE_DIR / "data" / "raw"
@@ -39,7 +42,11 @@ FINNHUB_CANDLES = "https://finnhub.io/api/v1/forex/candle"
 ALPHAV_INTRADAY = "https://www.alphavantage.co/query"
 
 def unix_ts(dt: datetime):
-    return int(dt.replace(tzinfo=None).timestamp())
+    if dt.tzinfo is None:
+        dt = dt.replace(tzinfo=UTC)
+    else:
+        dt = dt.astimezone(UTC)
+    return int(dt.timestamp())
 
 def fetch_candles_finnhub(symbol: str, resolution: str, _from_ts: int, _to_ts: int):
     params = {

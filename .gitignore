@@ -1,0 +1,19 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.egg-info/
+.pytest_cache/
+.venv/
+venv/
+.env
+
+# OS
+.DS_Store
+
+# Data
+data/
+
+# Notebooks
+.ipynb_checkpoints/

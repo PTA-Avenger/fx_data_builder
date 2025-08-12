@@ -11,13 +11,16 @@ from newsapi import NewsApiClient
 import pandas as pd
 from tqdm import tqdm
 from datetime import datetime, timedelta, UTC
+from dotenv import load_dotenv
+
+load_dotenv()
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 CONF_PATH = os.path.join(BASE_DIR, "config", "config.yaml")
 with open(CONF_PATH) as f:
     CONF = yaml.safe_load(f)
 
-NEWS_KEY = CONF['newsapi']['api_key']
+NEWS_KEY = os.getenv("NEWSAPI_KEY") or CONF.get('newsapi', {}).get('api_key')
 PAIRS = CONF['general']['fx_pairs']
 OUT_RAW = os.path.join(BASE_DIR, "data", "raw")
 os.makedirs(OUT_RAW, exist_ok=True)
