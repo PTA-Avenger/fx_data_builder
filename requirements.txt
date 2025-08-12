@@ -12,3 +12,4 @@ tqdm
 python-dotenv
 lxml
 feedparser
+tenacity
