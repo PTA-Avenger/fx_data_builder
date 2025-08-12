@@ -6,6 +6,7 @@ pandas_ta
 yfinance
 alpha_vantage
 newsapi-python
-ta-lib  # optional: can use pandas_ta if ta-lib is painful to build
+# ta-lib  # optional: can use pandas_ta if ta-lib is painful to build
 python-dateutil
 tqdm
+python-dotenv
