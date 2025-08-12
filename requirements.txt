@@ -10,3 +10,4 @@ newsapi-python
 python-dateutil
 tqdm
 python-dotenv
+lxml
